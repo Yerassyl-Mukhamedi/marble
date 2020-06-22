@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% for zapros in zaprosy %}
+            {{ zapros }} {{ zapros.pk }} 
+            <a href="{% url 'zapros_delete' zapros.pk %}" class="btn btn-warning" role="button">Delete</a>
+            <br> 
+        {% endfor %}
+        {% for finished in finisheds %}
+            {{ finished }}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+

@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+    <!-- <div class="headers">
+        <div>name</div>
+        <div>surname</div>
+    </div> -->
+    {% if user.is_authenticated %}
+        <div class="row">
+            {% for post in posts %}
+            <div class="col-md-4"  id="{% if post.company == 'pd' %}001{% elif post.company == 'ar' %}002{% elif post.company == 'bt' %}003{% elif post.company == 'ts' %}004{% elif post.company == 'ki' %}005{% elif post.company == 'co' %}co{% else %}un{% endif %}{{ post.job }}{{ post.workerID }}">
+                <a href="{% url 'level_detail' pk=post.pk %}">
+                    {{ post.name }}
+                    {{ post.surname }}
+                    {% if post.laptop.inventNumber == '?????' %}
+                        <div class="red">
+                            Нет инвентарьного номера
+                        </div>
+                    {% endif %}
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <a href="/accounts/login/">Login</a>
+    {% endif %}
+{% endblock %}
