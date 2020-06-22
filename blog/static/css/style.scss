@@ -3,9 +3,6 @@
 	border-radius: 10px;
 	padding: 40px;
 }
-body{
-	background-color: red;
-}
 .post {
 	margin-bottom: 10px;
 	height: 150px;
@@ -59,4 +56,40 @@ body{
 .title{
 	font-size:20px;
 	margin-bottom: 20px;
+}
+
+.post_edit{
+	width: 400px;
+	margin: 0 auto;
+	padding: 0px 20px;
+}
+
+.zapros_list .title{
+	font-size: 20px;
+	font-weight: bold;
+}
+.zapros_list h1{
+	margin-top: 0;
+}
+
+.finished .title{
+	font-size: 20px;
+	font-weight: bold;
+}
+.finished h1{
+	margin-top: 0;
+}
+
+.zapros_list .col-md-4{
+}
+
+.zapros_main .zapros{
+		border-bottom: 1px solid black;
+		align-items: center;
+		margin-bottom: 16px;
+		padding-bottom: 15px;
+}
+
+.finished{
+	display: none;
 }

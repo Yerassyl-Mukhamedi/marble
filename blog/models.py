@@ -257,8 +257,8 @@ class Worker(models.Model):
         return  self.name +' '+ self.surname
 
 class Zapros(models.Model):
-    name = models.CharField(max_length=200, default='name')
-    problem = models.CharField(max_length=200, default='problem')
+    name = models.CharField('Имя',max_length=200, default='name')
+    problem = models.TextField('Проблема',max_length=200, default='problem')
 
 
     def publish(self):
