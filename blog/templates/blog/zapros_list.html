@@ -1,14 +1,14 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-    <div class="zapros_main">
-        <div class="choices">
-            <button class="btn btn-primary" id='1' onclick="zapros_choice(this.id)">Текущие</button>
-            <button class="btn btn-primary" id='2' onclick="zapros_choice(this.id)">Законченные</button>
-        </div>
-        <div class="zapros_list" id="asd">
-            <h1>Текущие</h1>
-            {% if user.is_authenticated %}
+    {% if user.is_authenticated %}
+        <div class="zapros_main">
+            <div class="choices">
+                <button class="btn btn-primary" id='1' onclick="zapros_choice(this.id)">Текущие</button>
+                <button class="btn btn-primary" id='2' onclick="zapros_choice(this.id)">Законченные</button>
+            </div>
+            <div class="zapros_list" id="asd">
+                <h1>Текущие</h1>
                 <div class="row">
                     <div class="col-md-3 title">Имя</div>
                     <div class="col-md-8 title">Проблема</div>
@@ -21,39 +21,30 @@
                         <br> 
                     </div>
                 {% endfor %}
-            {% endif %}
-        </div>
-
-        <div class="finished">
-            <h1>Законченные</h1>
-            <div class="row">
-                <div class="col-md-3 title">Имя</div>
-                <div class="col-md-8 title">Проблема</div>
             </div>
-            {% for finished in finisheds %}
 
-                <div class="row zapros">
-                    <div class="col-md-3">{{ finished.name }}</div>
-                    <div class="col-md-7">{{ finished.problem }}</div>
-                    <br> 
+            <div class="finished">
+                <h1>Законченные</h1>
+                <div class="row">
+                    <div class="col-md-3 title">Имя</div>
+                    <div class="col-md-8 title">Проблема</div>
                 </div>
-            {% endfor %}
+                {% for finished in finisheds %}
+
+                    <div class="row zapros">
+                        <div class="col-md-3">{{ finished.name }}</div>
+                        <div class="col-md-7">{{ finished.problem }}</div>
+                        <br> 
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-    </div>
+    {% endif %}
 
 <script>
     //setNone(document.getElementsByClassName('zapros_list'))
 
-    function zapros_choice(pk){
-        if(pk == '1'){
-            setBlock(document.getElementsByClassName('zapros_list'))
-            setNone(document.getElementsByClassName('finished'))
-        }
-        else{
-            setBlock(document.getElementsByClassName('finished'))
-            setNone(document.getElementsByClassName('zapros_list'))
-        }
-    }
+
 </script>
     {% endblock %}
 

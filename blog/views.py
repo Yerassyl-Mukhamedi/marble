@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
-
+from django.core.mail import send_mail
 from .models import *
 from .forms import PostForm
 
@@ -69,6 +69,16 @@ def zapros_delete(request, pk):
     Finished.objects.create(name = current_name, problem = current_problem)
     current.delete()
     items = Zapros.objects.all()
+    
+    send_mail(
+    subject = 'That’s your subject',
+    message = 'That’s your message body',
+    from_email = 'mailer@btu.kz',
+    recipient_list = ['mailer@btu.kz',],
+    auth_user = 'mailer@btu.kz',
+    auth_password = 'Pass1234',
+    fail_silently = False,
+    )
 
     context = {
         'items': items

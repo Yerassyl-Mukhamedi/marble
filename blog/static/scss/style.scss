@@ -80,14 +80,13 @@
 	margin-top: 0;
 }
 
-.zapros_list .col-md-4{
-}
-
-.zapros_main .zapros{
+.zapros_main {
+	.zapros{
 		border-bottom: 1px solid black;
 		align-items: center;
 		margin-bottom: 16px;
 		padding-bottom: 15px;
+	}
 }
 
 .finished{
