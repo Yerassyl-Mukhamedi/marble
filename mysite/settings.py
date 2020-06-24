@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
-    'django_sass'
+    'django_sass',
     
 ]
 
@@ -123,6 +123,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+EMAIL_ACTIVE_FIELD = 'is_active'
+EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
+EMAIL_MAIL_HTML = 'confirm_template.html'
+
 DEFAULT_FROM_EMAIL = 'mailer@btu.kz'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.yandex.ru'
@@ -130,3 +134,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'mailer@btu.kz'
 EMAIL_HOST_PASSWORD = 'Pass1234'
 EMAIL_USE_SSL = False
+

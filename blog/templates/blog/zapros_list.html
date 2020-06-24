@@ -5,37 +5,67 @@
         <div class="zapros_main">
             <div class="choices">
                 <button class="btn btn-primary" id='1' onclick="zapros_choice(this.id)">Текущие</button>
-                <button class="btn btn-primary" id='2' onclick="zapros_choice(this.id)">Законченные</button>
+                <button class="btn btn-primary" id='2' onclick="zapros_choice(this.id)">В ожиданий</button>
+                <button class="btn btn-primary" id='3' onclick="zapros_choice(this.id)">Закрытые</button>
             </div>
-            <div class="zapros_list" id="asd">
+            <div class="list zapros_list" id="list1">
                 <h1>Текущие</h1>
                 <div class="row">
                     <div class="col-md-3 title">Имя</div>
                     <div class="col-md-8 title">Проблема</div>
                 </div>
                 {% for zapros in zaprosy %}
+                    {% if zapros.status == 'new' %}
                     <div class="row zapros">
-                        <div class="col-md-3">{{ zapros }}</div>
-                        <div class="col-md-7">{{ zapros.problem }}</div>
-                        <div class="col-md-2"><a href="{% url 'zapros_delete' zapros.pk %}" class="btn btn-warning" role="button">Сделано</a></div>
+                        <a href="{% url 'zapros_detail' zapros.pk %}">
+                            <div class="row">
+                                <div class="col-md-3">{{ zapros }}</div>
+                                <div class="col-md-9">{{ zapros.verification }}</div>
+                                <div class="col-md-7">{{ zapros.problem }}</div>
+                                <div class="col-md-7">{{ zapros.status }}</div>
+                            </div>
+                        </a>
+                        <div class="col-md-2"><a href="{% url 'zapros_awaits' zapros.pk %}" class="btn btn-warning" role="button">Сделано</a></div>
                         <br> 
-                    </div>
+                    </div>{% endif %}
+                {% endfor %}
+            </div>
+            <div class="list awaits" id="list2">
+                <h1>В ожиданий</h1>
+                <div class="row">
+                    <div class="col-md-3 title">Имя</div>
+                    <div class="col-md-8 title">Проблема</div>
+                </div>
+                {% for zapros in zaprosy %}
+                    {% if zapros.status == 'awaits' %}
+                        <a href="{% url 'zapros_detail' zapros.pk %}">
+                            <div class="row zapros">
+                                <div class="col-md-3">{{ zapros }}</div>
+                                <div class="col-md-9">{{ zapros.verification }}</div>
+                                <div class="col-md-7">{{ zapros.status }}</div>
+                                <div class="col-md-9">{{ zapros.problem }}</div>
+                                <br> 
+                            </div>
+                        </a>
+                    {% endif %}
                 {% endfor %}
             </div>
 
-            <div class="finished">
-                <h1>Законченные</h1>
+            <div class="list finished" id="list3">
+                <h1>Закрытые</h1>
                 <div class="row">
                     <div class="col-md-3 title">Имя</div>
                     <div class="col-md-8 title">Проблема</div>
                 </div>
                 {% for finished in finisheds %}
 
+                <a href="{% url 'zapros_detail' finished.pk %}">
                     <div class="row zapros">
                         <div class="col-md-3">{{ finished.name }}</div>
                         <div class="col-md-7">{{ finished.problem }}</div>
                         <br> 
                     </div>
+                </a>
                 {% endfor %}
             </div>
         </div>

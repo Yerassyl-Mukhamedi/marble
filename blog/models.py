@@ -3,9 +3,7 @@ from django.db import models
 from django.utils import timezone
 from django import forms
 from .choices import *
-
-
-
+from django.utils.crypto import get_random_string
 class Laptop(models.Model):
     name = models.CharField(max_length=200, default='name')
     company = models.CharField(
@@ -259,8 +257,9 @@ class Worker(models.Model):
 class Zapros(models.Model):
     name = models.CharField('Имя',max_length=200, default='name')
     problem = models.TextField('Проблема',max_length=200, default='problem')
-
-
+    unique_id = get_random_string(length=32)
+    verification = models.CharField(unique_id, max_length=200, default = unique_id)
+    status = models.CharField('Статус', max_length=200, default = 'new')
     def publish(self):
         self.save()
 

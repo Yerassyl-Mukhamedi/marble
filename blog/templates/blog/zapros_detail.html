@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% for current in currents %}
+        Имя: {{ current }} <br>
+        Проблема: {{ current.problem }} <br>
+        Статус: {% if  current.status == 'new' %} Текущий {% elif current.status == 'awaits' %} В ожиданий {% else %} Закрытые {% endif %} <br>
+        Token: {{ current.verification }} <br>
+    {% endfor %}
+
+    <script>
+        // alert(window.location.href);
+    </script>
+
+{% endblock %}

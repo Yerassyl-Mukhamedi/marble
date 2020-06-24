@@ -67,21 +67,21 @@
   padding: 0px 20px;
 }
 
-.zapros_list .title {
+.list .title {
   font-size: 20px;
   font-weight: bold;
 }
 
-.zapros_list h1 {
+.list h1 {
   margin-top: 0;
 }
 
-.finished .title {
+.list .title {
   font-size: 20px;
   font-weight: bold;
 }
 
-.finished h1 {
+.list h1 {
   margin-top: 0;
 }
 
@@ -92,6 +92,6 @@
   padding-bottom: 15px;
 }
 
-.finished {
+.finished, .awaits {
   display: none;
 }

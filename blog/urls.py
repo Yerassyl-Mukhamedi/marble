@@ -10,5 +10,7 @@ urlpatterns = [
     path('user', views.user, name='user'),
     path('zapros_list', views.zapros_list, name='zapros_list'),
     path('zapros/new/', views.zapros_new, name='zapros_new'),
-    path('zapros/delete/<int:pk>', views.zapros_delete, name='zapros_delete'),
+    path('zapros/detail/<int:pk>', views.zapros_detail, name='zapros_detail'),
+    path('zapros/awaits/<int:pk>', views.zapros_awaits, name='zapros_awaits'),
+    # path('zapros/delete/<int:pk>', views.zapros_delete, name='zapros_delete'),
 ]

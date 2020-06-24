@@ -6,6 +6,9 @@ from django.core.mail import send_mail
 from .models import *
 from .forms import PostForm
 
+from django.core.mail import EmailMessage
+from django.core.mail import EmailMultiAlternatives
+
 def post_list(request):
     posts = Worker.objects.order_by('job')
     blogs = Laptop.objects.filter(name='HP Pavilion').values_list('owner', flat=True)
@@ -62,23 +65,74 @@ def zapros_list(request):
     }
     return render(request, 'blog/zapros_list.html', context)
 
+
+
+def zapros_awaits(request, pk):
+    current = Zapros.objects.filter(id=pk)
+    current.update(status='awaits')
+    items = Zapros.objects.filter(id=pk)
+    problem = (str(current.values('problem')).replace("<QuerySet [{'problem':", "")).replace('}]>', '')
+
+
+    html_message = loader.render_to_string(
+            'register/email-template.html',
+            {
+                'hero': 'email_hero.png',
+                'message': 'We\'ll be contacting you shortly! If you have any questions, you can contact us at <a href="#">meow@something.com</a>',
+                'from_email': 'lala@lala.com',
+            }
+        )
+    email_subject = 'Thank you for your beeswax!'
+    to_list = 'johndoe@whatever.com'
+    mail = EmailMultiAlternatives(
+            email_subject, 'This is message', 'from_email',  [to_list])
+    mail.attach_alternative(html_message, "text/html")
+    try:
+        mail.send()
+    except:
+        logger.error("Unable to send mail.")
+
+
+    # send_mail(
+    # subject = 'Подтверждение проделанной работы',
+    # message = 'Are you delighted with work done??? <a href="youtube.com">Link</a> ' + problem,
+    # from_email = 'mailer@btu.kz',
+    # recipient_list = ['mailer@btu.kz',],
+    # auth_user = 'mailer@btu.kz',
+    # auth_password = 'Pass1234',
+    # fail_silently = False,
+    # )
+
+    context = {
+        'items': items
+    }
+    return render(request, 'blog/zapros_list.html', context)
+
+def zapros_detail(request, pk):
+    currents = Zapros.objects.filter(id=pk)
+    context = {
+        'currents': currents
+    }
+    return render(request, 'blog/zapros_detail.html', context)
+
+
 def zapros_delete(request, pk):
     current = Zapros.objects.filter(id=pk)
     current_name = current.values('name')
     current_problem = current.values('problem')
     Finished.objects.create(name = current_name, problem = current_problem)
-    current.delete()
+    current.awaits()
     items = Zapros.objects.all()
     
-    send_mail(
-    subject = 'That’s your subject',
-    message = 'That’s your message body',
-    from_email = 'mailer@btu.kz',
-    recipient_list = ['mailer@btu.kz',],
-    auth_user = 'mailer@btu.kz',
-    auth_password = 'Pass1234',
-    fail_silently = False,
-    )
+    # send_mail(
+    # subject = 'That’s your subject',
+    # message = 'That’s your message body',
+    # from_email = 'mailer@btu.kz',
+    # recipient_list = ['mailer@btu.kz',],
+    # auth_user = 'mailer@btu.kz',
+    # auth_password = 'Pass1234',
+    # fail_silently = False,
+    # )
 
     context = {
         'items': items

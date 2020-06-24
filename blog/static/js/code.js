@@ -26,12 +26,6 @@
 // });
 
 function zapros_choice(pk){
-    if(pk == '1'){
-        setBlock(document.getElementsByClassName('zapros_list'))
-        setNone(document.getElementsByClassName('finished'))
-    }
-    else{
-        setBlock(document.getElementsByClassName('finished'))
-        setNone(document.getElementsByClassName('zapros_list'))
-    }
+    setNone(document.getElementsByClassName('list'))
+    document.getElementById('list'+pk).style.display = 'block';
 }
