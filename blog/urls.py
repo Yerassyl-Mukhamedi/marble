@@ -12,5 +12,5 @@ urlpatterns = [
     path('zapros/new/', views.zapros_new, name='zapros_new'),
     path('zapros/detail/<int:pk>', views.zapros_detail, name='zapros_detail'),
     path('zapros/awaits/<int:pk>', views.zapros_awaits, name='zapros_awaits'),
-    # path('zapros/delete/<int:pk>', views.zapros_delete, name='zapros_delete'),
+    path('zapros/delete/<int:pk>/<str:token>', views.zapros_delete, name='zapros_delete'),
 ]

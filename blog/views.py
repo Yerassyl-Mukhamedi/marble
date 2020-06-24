@@ -9,6 +9,7 @@ from .forms import PostForm
 from django.core.mail import EmailMessage
 from django.core.mail import EmailMultiAlternatives
 
+
 def post_list(request):
     posts = Worker.objects.order_by('job')
     blogs = Laptop.objects.filter(name='HP Pavilion').values_list('owner', flat=True)
@@ -68,33 +69,25 @@ def zapros_list(request):
 
 
 def zapros_awaits(request, pk):
-    current = Zapros.objects.filter(id=pk)
-    current.update(status='awaits')
-    items = Zapros.objects.filter(id=pk)
-    problem = (str(current.values('problem')).replace("<QuerySet [{'problem':", "")).replace('}]>', '')
+    currents = Zapros.objects.filter(id=pk)
+    currents.update(status='awaits')
+    problem = (str(currents.values('problem')).replace("<QuerySet [{'problem':", "")).replace('}]>', '')
+    email = (str(currents.values('name')).replace("<QuerySet [{'name':", "")).replace('}]>', '')
+    token = (str(currents.values('verification')).replace("<QuerySet [{'verification':", "")).replace("}]>", "").replace("'","")
+    subject, from_email, to = 'Подтверждение проделанной работы', 'mailer@btu.kz', 'mailer@btu.kz'
+    text_content = 'adsfdsdf.'
+    link = 'http://127.0.0.1:8000/zapros/delete/'+str(pk)+'/'+token
+    text = '<a href="'+link+'">'+token+'</a>'
+    html_content = text
+    msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
 
-
-    html_message = loader.render_to_string(
-            'register/email-template.html',
-            {
-                'hero': 'email_hero.png',
-                'message': 'We\'ll be contacting you shortly! If you have any questions, you can contact us at <a href="#">meow@something.com</a>',
-                'from_email': 'lala@lala.com',
-            }
-        )
-    email_subject = 'Thank you for your beeswax!'
-    to_list = 'johndoe@whatever.com'
-    mail = EmailMultiAlternatives(
-            email_subject, 'This is message', 'from_email',  [to_list])
-    mail.attach_alternative(html_message, "text/html")
-    try:
-        mail.send()
-    except:
-        logger.error("Unable to send mail.")
-
+    
 
     # send_mail(
     # subject = 'Подтверждение проделанной работы',
+    # html_content = '<p>This is an <strong>important</strong> message.</p>'
     # message = 'Are you delighted with work done??? <a href="youtube.com">Link</a> ' + problem,
     # from_email = 'mailer@btu.kz',
     # recipient_list = ['mailer@btu.kz',],
@@ -104,9 +97,11 @@ def zapros_awaits(request, pk):
     # )
 
     context = {
-        'items': items
+        'currents': currents,
+        'token': token,
+        'email':email
     }
-    return render(request, 'blog/zapros_list.html', context)
+    return render(request, 'blog/zapros_detail.html', context)
 
 def zapros_detail(request, pk):
     currents = Zapros.objects.filter(id=pk)
@@ -116,14 +111,9 @@ def zapros_detail(request, pk):
     return render(request, 'blog/zapros_detail.html', context)
 
 
-def zapros_delete(request, pk):
-    current = Zapros.objects.filter(id=pk)
-    current_name = current.values('name')
-    current_problem = current.values('problem')
-    Finished.objects.create(name = current_name, problem = current_problem)
-    current.awaits()
-    items = Zapros.objects.all()
-    
+def zapros_delete(request, pk, token):
+    currents = Zapros.objects.filter(id=pk)
+    currents.update(status='finished')
     # send_mail(
     # subject = 'That’s your subject',
     # message = 'That’s your message body',
@@ -135,6 +125,6 @@ def zapros_delete(request, pk):
     # )
 
     context = {
-        'items': items
+        'currents': currents
     }
-    return render(request, 'blog/zapros_list.html', context)
+    return render(request, 'blog/zapros_detail.html', context)

@@ -128,10 +128,11 @@ EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
 EMAIL_MAIL_HTML = 'confirm_template.html'
 
 DEFAULT_FROM_EMAIL = 'mailer@btu.kz'
-EMAIL_USE_TLS = True
+EMAIL_USE_TLS = False
 EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_PORT = 587
+EMAIL_PORT = 465
 EMAIL_HOST_USER = 'mailer@btu.kz'
 EMAIL_HOST_PASSWORD = 'Pass1234'
-EMAIL_USE_SSL = False
+EMAIL_USE_SSL = True
+
 

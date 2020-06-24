@@ -2,14 +2,26 @@
 
 {% block content %}
     {% for current in currents %}
-        Имя: {{ current }} <br>
+        Почта: {{ current }} <br>
         Проблема: {{ current.problem }} <br>
         Статус: {% if  current.status == 'new' %} Текущий {% elif current.status == 'awaits' %} В ожиданий {% else %} Закрытые {% endif %} <br>
-        Token: {{ current.verification }} <br>
+        <div class="token" name="{{ current.verification }}">Token: <div id="token">{{ current.verification }}</div><br></div>
+        {% if current.status == 'new' %}
+            <a href="{% url 'zapros_awaits' pk=current.pk %}" class="btn btn-warning" role="button">Сделано</a>
+        {% else %}
+            <a href="{% url 'zapros_delete' pk=current.pk token=current.verification%}"  style="display: none;" class="btn btn-warning" id="zapros_detail_button" role="button">Close</a>
+        {% endif %}
     {% endfor %}
-
+    {% for tok in token %}
+        {{ tok }}
+    {% endfor %}
     <script>
-        // alert(window.location.href);
+        let link = window.location.href;
+        let token = document.getElementById('token').innerHTML;
+        if(link.includes(token)){
+            document.getElementById('zapros_detail_button').click();
+        }
+        // alert(link+token)
     </script>
 
 {% endblock %}

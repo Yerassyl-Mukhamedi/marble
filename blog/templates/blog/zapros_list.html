@@ -11,8 +11,9 @@
             <div class="list zapros_list" id="list1">
                 <h1>Текущие</h1>
                 <div class="row">
-                    <div class="col-md-3 title">Имя</div>
-                    <div class="col-md-8 title">Проблема</div>
+                    <div class="col-md-3 title">E-mail</div>
+                    <div class="col-md-5 title">Проблема</div>
+                    <div class="col-md-2 title">Статус</div>
                 </div>
                 {% for zapros in zaprosy %}
                     {% if zapros.status == 'new' %}
@@ -20,12 +21,10 @@
                         <a href="{% url 'zapros_detail' zapros.pk %}">
                             <div class="row">
                                 <div class="col-md-3">{{ zapros }}</div>
-                                <div class="col-md-9">{{ zapros.verification }}</div>
-                                <div class="col-md-7">{{ zapros.problem }}</div>
-                                <div class="col-md-7">{{ zapros.status }}</div>
+                                <div class="col-md-5">{{ zapros.problem }}</div>
+                                <div class="col-md-2">{{ zapros.status }}</div>
                             </div>
                         </a>
-                        <div class="col-md-2"><a href="{% url 'zapros_awaits' zapros.pk %}" class="btn btn-warning" role="button">Сделано</a></div>
                         <br> 
                     </div>{% endif %}
                 {% endfor %}
@@ -57,15 +56,17 @@
                     <div class="col-md-3 title">Имя</div>
                     <div class="col-md-8 title">Проблема</div>
                 </div>
-                {% for finished in finisheds %}
-
-                <a href="{% url 'zapros_detail' finished.pk %}">
-                    <div class="row zapros">
-                        <div class="col-md-3">{{ finished.name }}</div>
-                        <div class="col-md-7">{{ finished.problem }}</div>
-                        <br> 
-                    </div>
-                </a>
+                
+                {% for zapros in zaprosy %}
+                    {% if zapros.status == 'finished' %}
+                        <a href="{% url 'zapros_detail' zapros.pk %}">
+                            <div class="row zapros">
+                                <div class="col-md-3">{{ zapros.name }}</div>
+                                <div class="col-md-7">{{ zapros.problem }}</div>
+                                <br> 
+                            </div>
+                        </a>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>

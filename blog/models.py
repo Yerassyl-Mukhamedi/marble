@@ -255,8 +255,8 @@ class Worker(models.Model):
         return  self.name +' '+ self.surname
 
 class Zapros(models.Model):
-    name = models.CharField('Имя',max_length=200, default='name')
-    problem = models.TextField('Проблема',max_length=200, default='problem')
+    name = models.CharField('Почта',max_length=200, default='')
+    problem = models.TextField('Опишите проблему',max_length=200, default='')
     unique_id = get_random_string(length=32)
     verification = models.CharField(unique_id, max_length=200, default = unique_id)
     status = models.CharField('Статус', max_length=200, default = 'new')
