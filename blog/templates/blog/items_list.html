@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="items_list">
+        <div class="header">
+            <a href="{% url 'item_new' %}" class='glyphicon glyphicon-plus'></a>
+            Добавить новую технику
+        </div>
+            <div class="row">
+                {% for item in items %}
+                    <a href="{% url 'item_detail' item.pk %}" class="col-md-4 btn btn-warning">
+                        {{ item }}
+                    </a>
+                {% endfor %}
+            </div>
+    </div>
+{% endblock %}
+

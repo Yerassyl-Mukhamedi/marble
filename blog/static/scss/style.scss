@@ -99,3 +99,38 @@
 
 .token{
 }
+
+.header{
+	margin: 50px auto;
+	margin-top: 0;
+	a{
+	}
+}
+
+.post_list{
+	.top{
+		.glyphicon{
+			margin-left: 300px;
+		}
+	}
+}
+.item_new{
+	label{
+		width: 170px;
+	}
+}
+
+.items_list{
+	.btn{
+		margin-bottom: 20px;
+	}
+}
+
+.item_detail{
+	.label{
+		font-weight: bold;
+		width: 300px !important;
+		font-size: 20px;
+		color: black;
+	}
+}

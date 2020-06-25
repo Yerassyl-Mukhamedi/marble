@@ -51,6 +51,14 @@
     </head>
     <body>
         <div class="container">
+            
+            {% if user.is_authenticated %}
+                <div class="header">
+                    <a class='btn btn-info'href="{% url 'zapros_list' %}">Список Запросов</a>
+                    <a class='btn btn-info'href="{% url 'worker_list' %}">Список Сотрудников</a>
+                    <a class='btn btn-info'href="{% url 'items_list' %}">Инвентарь</a>
+                </div>
+            {% endif %}
             {% block content %}
             {% endblock %}
         </div>

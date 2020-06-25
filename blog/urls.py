@@ -3,7 +3,8 @@ from . import views
 
 urlpatterns = [
     path('', views.zapros_new, name='zapros_new'),
-    path('post_list/', views.post_list, name='post_list'),
+    path('worker_list/', views.worker_list, name='worker_list'),
+    path('worker_new/', views.worker_new, name='worker_new'),
     path('post/<int:pk>/', views.post_detail, name='post_detail'),
     path('level_list/', views.level_list, name='level_list'),
     path('level/<int:pk>/', views.level_detail, name='level_detail'),
@@ -13,4 +14,7 @@ urlpatterns = [
     path('zapros/detail/<int:pk>', views.zapros_detail, name='zapros_detail'),
     path('zapros/awaits/<int:pk>', views.zapros_awaits, name='zapros_awaits'),
     path('zapros/delete/<int:pk>/<str:token>', views.zapros_delete, name='zapros_delete'),
+    path('items_list', views.items_list, name='items_list'),
+    path('item_new/', views.item_new, name='item_new'),
+    path('item_detail/<int:pk>', views.item_detail, name='item_detail'),
 ]

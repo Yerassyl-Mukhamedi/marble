@@ -4,18 +4,32 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.core.mail import send_mail
 from .models import *
-from .forms import PostForm
+from .forms import *
 
 from django.core.mail import EmailMessage
 from django.core.mail import EmailMultiAlternatives
 
 
-def post_list(request):
+def worker_list(request):
     posts = Worker.objects.order_by('job')
     blogs = Laptop.objects.filter(name='HP Pavilion').values_list('owner', flat=True)
     laptop_count = Laptop.objects.count()
     worker_count = Worker.objects.count()
-    return render(request, 'blog/post_list.html', {'posts': posts, 'blogs': blogs, 'laptop_count': laptop_count, 'worker_count': worker_count })
+    return render(request, 'blog/worker_list.html', {'posts': posts, 'blogs': blogs, 'laptop_count': laptop_count, 'worker_count': worker_count })
+
+
+def worker_new(request):
+    if request.method == "POST":
+        form = WorkerForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+            return redirect('worker_list')
+    else:
+        form = WorkerForm()
+    return render(request, 'blog/worker_new.html', {'form': form})
 
 def post_detail(request, pk):
     post = get_object_or_404(Worker, pk=pk)
@@ -31,6 +45,9 @@ def post_detail(request, pk):
     displays = Display.objects.order_by('name')
     computers = Computer.objects.order_by('name')
     return render(request, 'blog/post_detail.html', {'post': post, 'notebooks': notebooks, 'printers': printers, 'shredders': shredders, 'televisions': televisions, 'conditions': conditions, 'telephones': telephones, 'cameras': cameras, 'dispensers': dispensers, 'microwaves': microwaves, 'displays': displays, 'computers': computers})
+
+
+
 
 def level_list(request):
     posts = Worker.objects.order_by('name')
@@ -128,3 +145,38 @@ def zapros_delete(request, pk, token):
         'currents': currents
     }
     return render(request, 'blog/zapros_detail.html', context)
+
+
+
+def item_new(request):
+    if request.method == "POST":
+        form = LaptopForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+            return redirect('items_list')
+    else:
+        form = LaptopForm()
+    return render(request, 'blog/item_new.html', {'form': form})
+
+
+
+
+def items_list(request):
+    items = Laptop.objects.order_by('name')
+
+    context = {
+        'items': items
+    }
+    return render(request, 'blog/items_list.html', context)
+
+
+def item_detail(request, pk):
+    items = Laptop.objects.filter(id=pk)
+
+    context = {
+        'items': items
+    }
+    return render(request, 'blog/item_detail.html', context)

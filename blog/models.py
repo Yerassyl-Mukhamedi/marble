@@ -4,23 +4,24 @@ from django.utils import timezone
 from django import forms
 from .choices import *
 from django.utils.crypto import get_random_string
+
+
 class Laptop(models.Model):
-    name = models.CharField(max_length=200, default='name')
-    company = models.CharField(
+    name = models.CharField('Модель', max_length=200, default='')
+    company = models.CharField('Компания',
         max_length=2,
         choices=companyChoice,
         default='pd',
     )
-    inventNumber = models.CharField(max_length=200, default='name')
-    serialNumber = models.CharField(max_length=200, default='name')
+    inventNumber = models.CharField('Инвентаризационный Номер', max_length=200, default='')
+    serialNumber = models.CharField('Серийный Номер', max_length=200, default='')
     owner = models.ForeignKey('Worker', on_delete=models.CASCADE, null=True, blank=True)
 
     def publish(self):
         self.save()
 
     def __str__(self):
-        return self.name + ' (' + self.serialNumber + ') ' + self.inventNumber + ' ' + str(self.owner)
-
+        return self.name + ' (' + self.serialNumber + ') '
 
 
 class Printer(models.Model):
@@ -232,8 +233,8 @@ class Document(models.Model):
         return self.name + ' ' + str(self.owner)
 
 class Worker(models.Model):
-    name = models.CharField(max_length=200, default='name')
-    surname = models.CharField(max_length=200, default='name')
+    name = models.CharField(max_length=200, default='')
+    surname = models.CharField(max_length=200, default='')
     workerID = models.IntegerField(default=1)
     company = models.CharField(
         max_length=2,

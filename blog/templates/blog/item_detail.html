@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="item_detail">
+        <div class="header">
+        </div>
+            <div class="row">
+                {% for item in items %}
+                    <div class="label"> Модель: </div>{{ item.name }} <br>
+                    <div class="label"> Серийный Номер: </div>{{ item.serialNumber }}<br>
+                    <div class="label"> Инв. Номер: </div>{{ item.inventNumber }}<br>
+                    <div class="label"> Пользователь: </div>{{ item.owner }}<br>
+
+                {% endfor %}
+            </div>
+    </div>
+{% endblock %}
+
