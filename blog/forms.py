@@ -13,10 +13,17 @@ class LaptopForm(forms.ModelForm):
 
     class Meta:
         model = Laptop
-        fields = ('name', 'company', 'inventNumber', 'serialNumber', 'owner')
+        fields = ('brand', 'name', 'family', 'company', 'inventNumber', 'serialNumber', 'owner')
 
 class WorkerForm(forms.ModelForm):
 
     class Meta:
         model = Worker
         fields = ('name', 'surname', 'company', 'job')
+
+
+class TonerForm(forms.ModelForm):
+
+    class Meta:
+        model = Toner
+        fields = ('used_loads',)

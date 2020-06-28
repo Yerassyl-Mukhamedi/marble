@@ -3,16 +3,40 @@
 {% block content %}
     <div class="items_list">
         <div class="header">
-            <a href="{% url 'item_new' %}" class='glyphicon glyphicon-plus'></a>
+            <a href="{% url 'item_new' %}" class='glyphicon glyphicon-plus'>+</a>
             Добавить новую технику
         </div>
-            <div class="row">
-                {% for item in items %}
-                    <a href="{% url 'item_detail' item.pk %}" class="col-md-4 btn btn-warning">
-                        {{ item }}
-                    </a>
-                {% endfor %}
+        <div class="row buttons">
+            <button class="btn btn-primary" id="Ноутбук" onclick="family_choice(this.id)">Ноутбуки</button>
+            <button class="btn btn-primary" id="Компьютер" onclick="family_choice(this.id)">Компьютеры</button>
+            <button class="btn btn-primary" id="Монитор" onclick="family_choice(this.id)">Мониторы</button>
+            <button class="btn btn-primary" id="Принтер" onclick="family_choice(this.id)">Принтеры</button>
+
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Компания
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" id="all" onclick="company_choice(this.id)">Все</a>
+                    <a class="dropdown-item" id="Planeta Doors" onclick="company_choice(this.id)">Planeta Doors</a>
+                    <a class="dropdown-item" id="Beltaus Trading" onclick="company_choice(this.id)">Beltaus</a>
+                </div>
             </div>
+            <button class="btn btn-success" onclick="apply()">Применить</button>
+            
+        </div>
+        <div class="row list">
+            {% for item in items %}
+                <!-- <a href="{% url 'item_detail' item.pk %}" class="col-md-4 btn btn-warning">
+                </a> -->
+                <div class="col-md-4 item {{ item.get_family_display }} {{ item.get_company_display }}">
+                    {{ item.brand }}
+                    {{ item.name }}
+                    {{ item.get_family_display }}
+                    {{ item.get_company_display }}
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
 

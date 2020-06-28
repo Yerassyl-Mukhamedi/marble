@@ -5,10 +5,13 @@ from django.shortcuts import redirect
 from django.core.mail import send_mail
 from .models import *
 from .forms import *
+import logging
 
 from django.core.mail import EmailMessage
 from django.core.mail import EmailMultiAlternatives
 
+
+logger = logging.getLogger(__name__)
 
 def worker_list(request):
     posts = Worker.objects.order_by('job')
@@ -166,7 +169,6 @@ def item_new(request):
 
 def items_list(request):
     items = Laptop.objects.order_by('name')
-
     context = {
         'items': items
     }
@@ -175,8 +177,50 @@ def items_list(request):
 
 def item_detail(request, pk):
     items = Laptop.objects.filter(id=pk)
-
     context = {
         'items': items
     }
     return render(request, 'blog/item_detail.html', context)
+
+
+def toner_list(request):
+    toners = Toner.objects.order_by('name')
+
+    context = {
+        'toners': toners
+    }
+    return render(request, 'blog/toner_list.html', context)
+
+def toner_edit(request, pk):
+    toner = get_object_or_404(Toner, pk=pk)
+    if request.method == "POST":
+        form = TonerForm(request.POST, instance=toner)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            current = post.used_loads
+            if current > 0:
+                remained = post.remained_loads
+                overall = post.overall
+                post.remained_loads = remained - current
+                post.overall = overall + current
+                post.used_loads = 0
+                post.save()
+                history = History(name=post.get_name_display(), used=current, old_rem=remained, new_rem=post.remained_loads, old_over=overall, new_over=post.overall)
+                history.save()
+                return redirect('toner_list')
+    else:
+        form = TonerForm(instance=toner)
+    toner1 = Toner.objects.filter(id=pk)
+    return render(request, 'blog/toner_edit.html', {'form': form, 'toner1': toner1})
+
+
+def history_list(request):
+    items = History.objects.all().order_by('date')
+
+    context = {
+        'items': items
+    } 
+
+    return render(request, 'blog/history_list.html', context)

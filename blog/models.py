@@ -4,14 +4,20 @@ from django.utils import timezone
 from django import forms
 from .choices import *
 from django.utils.crypto import get_random_string
-
+from datetime import datetime
 
 class Laptop(models.Model):
+    brand = models.ForeignKey('Brand', on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField('Модель', max_length=200, default='')
     company = models.CharField('Компания',
         max_length=2,
         choices=companyChoice,
         default='pd',
+    )
+    family = models.CharField('Тип Техники',
+        max_length=2,
+        choices=techChoice,
+        default='t1',
     )
     inventNumber = models.CharField('Инвентаризационный Номер', max_length=200, default='')
     serialNumber = models.CharField('Серийный Номер', max_length=200, default='')
@@ -24,6 +30,16 @@ class Laptop(models.Model):
         return self.name + ' (' + self.serialNumber + ') '
 
 
+class Brand(models.Model):
+    name = models.CharField('Модель', max_length=200, default='')
+
+    def publish(self):
+        self.save()
+
+    def __str__(self):
+        return self.name
+
+    
 class Printer(models.Model):
     name = models.CharField(max_length=200, default='name')
     company = models.CharField(
@@ -277,3 +293,38 @@ class Finished(models.Model):
 
     def __str__(self):
         return self.name + ' ' + self.problem
+
+class Toner(models.Model):
+    name = models.CharField('Тонер',
+        max_length=2,
+        choices=tonerChoice,
+        default='t1',
+    )
+    remained_loads = models.IntegerField('Осталось заправок', default=1)
+    used_loads = models.IntegerField('Использовано сейчас', default=0)
+    overall = models.IntegerField('Итого', default=1)
+
+
+    def publish(self):
+        self.save()
+
+    def __str__(self):
+        return self.get_name_display()
+
+
+class History(models.Model):
+    name = models.CharField('History', max_length=100, default='history')
+    used = models.IntegerField(default=0)    
+    old_rem = models.IntegerField(default=0)
+    new_rem = models.IntegerField(default=0)
+    old_over = models.IntegerField(default=0)
+    new_over = models.IntegerField(default=0) 
+    old_text = models.CharField('History', max_length=100, default='history')
+    new_text = models.CharField('History', max_length=100, default='history')
+    date = models.DateTimeField(default=datetime.now, blank=True)
+    
+    def publish(self):
+        self.save()
+
+    def __str__(self):
+        return self.name

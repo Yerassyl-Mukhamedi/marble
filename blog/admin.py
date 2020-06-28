@@ -1,4 +1,5 @@
 from django.contrib import admin
+from simple_history.admin import SimpleHistoryAdmin
 from .models import *
 
 admin.site.register(Worker)
@@ -15,3 +16,6 @@ admin.site.register(Display)
 admin.site.register(Computer)
 admin.site.register(Document)
 admin.site.register(Zapros)
+admin.site.register(Toner)
+admin.site.register(History)
+admin.site.register(Brand)

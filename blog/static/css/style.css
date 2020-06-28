@@ -3,7 +3,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   /* Параметры тени */
   border-radius: 10px;
-  padding: 40px;
+  padding: 40px 20px;
 }
 
 .post {
@@ -113,8 +113,20 @@
   width: 170px;
 }
 
-.items_list .btn {
-  margin-bottom: 20px;
+.items_list .buttons {
+  margin-bottom: 40px;
+}
+
+.items_list .buttons .btn {
+  margin-right: 10px;
+}
+
+.items_list .header {
+  margin: 20px;
+}
+
+.items_list .dropdown-toggle {
+  margin-left: 100px;
 }
 
 .item_detail .label {
@@ -122,4 +134,25 @@
   width: 300px !important;
   font-size: 20px;
   color: black;
+}
+
+.toner_edit label {
+  width: 200px;
+}
+
+.history_list .title {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.history_list .buttons {
+  margin-bottom: 30px;
+}
+
+.history_list .toner {
+  display: none;
+}
+
+.history_list #toner1 {
+  display: block;
 }

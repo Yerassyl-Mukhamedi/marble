@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+    {% block content %}
+        {% for toner in toner1 %}
+            <div class="toner_edit">
+                <h1>Модель: {{ toner }}</h1>
+                <form method="POST" class="post-form">{% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="save btn btn-default">Отправить</button>
+                </form>
+            </div>
+        {% endfor %}
+    {% endblock %}

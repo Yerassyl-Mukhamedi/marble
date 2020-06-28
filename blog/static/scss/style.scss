@@ -1,7 +1,7 @@
 .container {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Параметры тени */
 	border-radius: 10px;
-	padding: 40px;
+	padding: 40px 20px;
 }
 .post {
 	margin-bottom: 10px;
@@ -121,8 +121,18 @@
 }
 
 .items_list{
-	.btn{
-		margin-bottom: 20px;
+	.buttons{
+		margin-bottom: 40px;
+		.btn{
+			margin-right: 10px;
+		}
+	}
+	.header{
+		margin: 20px;
+	}
+
+	.dropdown-toggle{
+		margin-left: 100px;
 	}
 }
 
@@ -132,5 +142,29 @@
 		width: 300px !important;
 		font-size: 20px;
 		color: black;
+	}
+}
+
+.toner_edit{
+	label{
+		width: 200px;
+	}
+	input{
+	}
+}
+
+.history_list{
+	.title{
+		font-size: 14px;
+		font-weight: bold;
+	}
+	.buttons{
+		margin-bottom: 30px;
+	}
+	.toner{
+		display: none;
+	}
+	#toner1{
+		display: block;
 	}
 }

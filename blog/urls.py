@@ -17,4 +17,7 @@ urlpatterns = [
     path('items_list', views.items_list, name='items_list'),
     path('item_new/', views.item_new, name='item_new'),
     path('item_detail/<int:pk>', views.item_detail, name='item_detail'),
+    path('toner_list', views.toner_list, name='toner_list'),
+    path('toner/edit/<int:pk>', views.toner_edit, name='toner_edit'),
+    path('history_list', views.history_list, name='history_list'),
 ]
