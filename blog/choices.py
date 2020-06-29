@@ -44,9 +44,10 @@ sectionChoice = [
 
 
 tonerChoice = [
-    ('t1', 'F217'),
-    ('t2', 'ANB-12'),
-    ('t3', '75zD'),
+    ('t1', 'TRHM102'),
+    ('t2', 'CE285A'),
+    ('t3', 'TRSUNIV'),
+    ('t4', 'T125-K'),
 ]
  
 

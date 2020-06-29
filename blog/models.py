@@ -252,7 +252,6 @@ class Worker(models.Model):
     name = models.CharField(max_length=200, default='')
     surname = models.CharField(max_length=200, default='')
     email = models.CharField(max_length=200, default='')
-    workerID = models.IntegerField(default=1)
     company = models.CharField(
         max_length=2,
         choices=companyChoice,
@@ -304,7 +303,8 @@ class Toner(models.Model):
     remained_loads = models.IntegerField('Осталось заправок', default=1)
     used_loads = models.IntegerField('Использовано сейчас', default=0)
     overall = models.IntegerField('Итого', default=1)
-
+    accept = models.CharField('Совместимые', max_length=100, default='')
+    
 
     def publish(self):
         self.save()
