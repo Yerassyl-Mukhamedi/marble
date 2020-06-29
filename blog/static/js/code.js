@@ -48,21 +48,70 @@ function toner_date(){
 }
 
 
-let family, company;
+let family = 'Ноутбук', company;
 
 function family_choice(pk){
     family = pk;
     setNone(document.getElementsByClassName('item'));
-    setBlock(document.getElementsByClassName(family));
+    removeClass(document.getElementsByClassName('item'), 'oncount');
+    setBlock(document.getElementsByClassName(family + ' ' + company));
+    addClass(document.getElementsByClassName(family + ' ' + company), 'oncount');
+
+    setTimeout(function() {
+        let parent = document.getElementById('list');
+        let count = parent.childElementCount;
+        let total = 0;
+        for(var i=0; i<count; i++){
+            if((parent.children[i]).classList.contains('oncount')){
+                total++;
+            }
+        }
+        console.log(total);
+    }, 1);
 }
 
 function company_choice(pk){
     company = pk;
-    document.getElementById('dropdownMenuButton').innerHTML = company;
+    document.getElementById('dropdownMenuButton1').innerHTML = company;
+}
+
+function addClass(elements, klas){
+    for(var i=0;i<elements.length;i++){
+        elements[i].classList.add(klas);
+    }
+}
+function removeClass(elements, klas){
+    for(var i=0;i<elements.length;i++){
+        elements[i].classList.remove(klas);
+    }
 }
 
 function apply(){
     // alert(family + ' ' + company);
     setNone(document.getElementsByClassName('item'));
-    setBlock(document.getElementsByClassName(family + ' ' + company));
+    if(company == "all"){
+        company = '';
+        // setBlock(document.getElementsByClassName(family + ' ' + company));
+        // removeClass(document.getElementsByClassName('item'), 'oncount');
+        setBlock(document.getElementsByClassName(family));
+        
+    }
+    else{
+        setBlock(document.getElementsByClassName(family + ' ' + company));
+        removeClass(document.getElementsByClassName('item'), 'oncount');
+        addClass(document.getElementsByClassName(family + ' ' + company), 'oncount')
+    }
+
+    setTimeout(function() {
+        let parent = document.getElementById('list');
+        let count = parent.childElementCount;
+        let total = 0;
+        for(var i=0; i<count; i++){
+            if((parent.children[i]).classList.contains('oncount')){
+                total++;
+            }
+        }
+        console.log(total);
+    }, 1);
 }
+

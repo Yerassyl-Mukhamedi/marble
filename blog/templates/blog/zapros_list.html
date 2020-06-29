@@ -17,16 +17,17 @@
                 </div>
                 {% for zapros in zaprosy %}
                     {% if zapros.status == 'new' %}
-                    <div class="row zapros">
-                        <a href="{% url 'zapros_detail' zapros.pk %}">
-                            <div class="row">
-                                <div class="col-md-3">{{ zapros }}</div>
-                                <div class="col-md-5">{{ zapros.problem }}</div>
-                                <div class="col-md-2">{{ zapros.status }}</div>
-                            </div>
-                        </a>
-                        <br> 
-                    </div>{% endif %}
+                        <div class="row zapros">
+                            <a href="{% url 'zapros_detail' zapros.pk %}">
+                                <div class="row">
+                                    <div class="col-md-3">{{ zapros }}</div>
+                                    <div class="col-md-5">{{ zapros.problem }}</div>
+                                    <div class="col-md-2">{{ zapros.status }}</div>
+                                </div>
+                            </a>
+                            <br> 
+                        </div>
+                    {% endif %}
                 {% endfor %}
             </div>
             <div class="list awaits" id="list2">

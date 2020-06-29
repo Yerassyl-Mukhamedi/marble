@@ -7,6 +7,7 @@ from .models import *
 from .forms import *
 import logging
 
+from django.db.models import Q
 from django.core.mail import EmailMessage
 from django.core.mail import EmailMultiAlternatives
 
@@ -33,6 +34,8 @@ def worker_new(request):
     else:
         form = WorkerForm()
     return render(request, 'blog/worker_new.html', {'form': form})
+
+
 
 def post_detail(request, pk):
     post = get_object_or_404(Worker, pk=pk)
@@ -69,10 +72,14 @@ def zapros_new(request):
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-            return redirect('zapros_list')
+            if Worker.objects.filter(email=post.name):
+                post.author = request.user
+                post.published_date = timezone.now()
+                post.save()
+                return redirect('zapros_list')
+            else:
+                error = 'error'
+                return render(request, 'user/post_edit.html', {'error': error, 'form': form})
     else:
         form = PostForm()
     return render(request, 'user/post_edit.html', {'form': form})
@@ -92,12 +99,12 @@ def zapros_awaits(request, pk):
     currents = Zapros.objects.filter(id=pk)
     currents.update(status='awaits')
     problem = (str(currents.values('problem')).replace("<QuerySet [{'problem':", "")).replace('}]>', '')
-    email = (str(currents.values('name')).replace("<QuerySet [{'name':", "")).replace('}]>', '')
+    email = (str(currents.values('name')).replace("<QuerySet [{'name':", "")).replace("}]>", "").replace("'", "")
     token = (str(currents.values('verification')).replace("<QuerySet [{'verification':", "")).replace("}]>", "").replace("'","")
-    subject, from_email, to = 'Подтверждение проделанной работы', 'mailer@btu.kz', 'mailer@btu.kz'
+    subject, from_email, to = 'Подтверждение проделанной работы', 'mailer@btu.kz', email
     text_content = 'adsfdsdf.'
     link = 'http://127.0.0.1:8000/zapros/delete/'+str(pk)+'/'+token
-    text = '<a href="'+link+'">'+token+'</a>'
+    text = 'Подтвердите окончание задачи"'+ problem +'"перейдя по <a href="'+link+'">ссылке</a>'
     html_content = text
     msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
     msg.attach_alternative(html_content, "text/html")
@@ -200,7 +207,7 @@ def toner_edit(request, pk):
             post.author = request.user
             post.published_date = timezone.now()
             current = post.used_loads
-            if current > 0:
+            if current > 0 and post.remained_loads > 0 and post.remained_loads-current >= 0:
                 remained = post.remained_loads
                 overall = post.overall
                 post.remained_loads = remained - current

@@ -86,7 +86,11 @@
 		align-items: center;
 		margin-bottom: 16px;
 		padding-bottom: 15px;
+		a{
+			width: 100%;
+		}
 	}
+
 }
 
 .finished, .awaits{
@@ -130,7 +134,20 @@
 	.header{
 		margin: 20px;
 	}
-
+	.list{
+		justify-content: space-between;
+		.item{
+			width: 32%;
+			border: 1px solid blue;
+			border-radius: 20px;
+			margin-bottom: 15px;
+			padding: 10px;
+			display: none;
+		}
+		.Ноутбук{
+			display: block;
+		}
+	}
 	.dropdown-toggle{
 		margin-left: 100px;
 	}

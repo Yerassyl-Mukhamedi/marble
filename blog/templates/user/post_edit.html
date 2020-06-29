@@ -2,6 +2,9 @@
 
 {% block content %}
 <div class="post_edit">
+    {% if error %}
+       <strong>Нужна действительная корпоративная почта</strong>
+    {% endif %}
     <h1>Заявка</h1>
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}
@@ -9,4 +12,6 @@
     </form>
 </div>
 {% endblock %}
+
+
 

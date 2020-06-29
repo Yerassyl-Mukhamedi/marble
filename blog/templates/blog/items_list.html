@@ -13,28 +13,38 @@
             <button class="btn btn-primary" id="Принтер" onclick="family_choice(this.id)">Принтеры</button>
 
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Компания
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <a class="dropdown-item" id="all" onclick="company_choice(this.id)">Все</a>
                     <a class="dropdown-item" id="Planeta Doors" onclick="company_choice(this.id)">Planeta Doors</a>
                     <a class="dropdown-item" id="Beltaus Trading" onclick="company_choice(this.id)">Beltaus</a>
                 </div>
             </div>
+            <!-- <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Производитель
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                        <a class="dropdown-item" id="all" onclick="company_choice(this.id)">Все</a>
+                        <a class="dropdown-item" id="Planeta Doors" onclick="company_choice(this.id)">Planeta Doors</a>
+                        <a class="dropdown-item" id="Beltaus Trading" onclick="company_choice(this.id)">Beltaus</a>
+                    </div>
+                </div> -->
             <button class="btn btn-success" onclick="apply()">Применить</button>
             
         </div>
-        <div class="row list">
+        <div class="row list" id="list">
             {% for item in items %}
                 <!-- <a href="{% url 'item_detail' item.pk %}" class="col-md-4 btn btn-warning">
                 </a> -->
-                <div class="col-md-4 item {{ item.get_family_display }} {{ item.get_company_display }}">
+                <a href="{% url 'item_detail' item.pk %}" class="item {{ item.get_family_display }} {{ item.get_company_display }}">
                     {{ item.brand }}
                     {{ item.name }}
                     {{ item.get_family_display }}
                     {{ item.get_company_display }}
-                </div>
+                </a>
             {% endfor %}
         </div>
     </div>

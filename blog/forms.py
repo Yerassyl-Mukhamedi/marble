@@ -27,3 +27,9 @@ class TonerForm(forms.ModelForm):
     class Meta:
         model = Toner
         fields = ('used_loads',)
+
+class WorkerForm(forms.ModelForm):
+
+    class Meta:
+        model = Worker
+        fields = ('name',)
