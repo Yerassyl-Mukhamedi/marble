@@ -48,7 +48,8 @@ function toner_date(){
 }
 
 
-let family = 'Ноутбук', company;
+let family = 'Ноутбук'; 
+let company = 'Planeta Doors';
 
 function family_choice(pk){
     family = pk;

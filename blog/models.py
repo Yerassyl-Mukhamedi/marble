@@ -252,6 +252,7 @@ class Worker(models.Model):
     name = models.CharField(max_length=200, default='')
     surname = models.CharField(max_length=200, default='')
     email = models.CharField(max_length=200, default='')
+    server = models.CharField(max_length=200, default='')
     company = models.CharField(
         max_length=2,
         choices=companyChoice,
