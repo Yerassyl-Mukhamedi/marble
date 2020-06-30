@@ -103,14 +103,14 @@ def zapros_awaits(request, pk):
     token = (str(currents.values('verification')).replace("<QuerySet [{'verification':", "")).replace("}]>", "").replace("'","")
     subject, from_email, to = 'Подтверждение проделанной работы', 'mailer@btu.kz', email
     text_content = 'adsfdsdf.'
-    link = 'http://127.0.0.1:8000/zapros/delete/'+str(pk)+'/'+token
+    link = 'http://webtestingarea.pythonanywhere.com/'+str(pk)+'/'+token
     text = 'Подтвердите окончание задачи"'+ problem +'"перейдя по <a href="'+link+'">ссылке</a>'
     html_content = text
     msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
-    
+
 
     # send_mail(
     # subject = 'Подтверждение проделанной работы',
@@ -228,6 +228,6 @@ def history_list(request):
 
     context = {
         'items': items
-    } 
+    }
 
     return render(request, 'blog/history_list.html', context)

@@ -4,6 +4,7 @@
             {% for toner in toners %}
                 <div class="col-md-4">
                     Тонер: {{ toner }} {{ toner.pk }} <br>
+                    Совместимость <strong> {{ toner.accept }}</strong><br>
                     Осталось <strong> {{ toner.remained_loads }}</strong> заправок <br>
                     <!-- Used <strong> {{ toner.used_loads }}</strong> заправок <br> -->
                     Заправлено всего <strong> {{ toner.overall }}</strong> <br>

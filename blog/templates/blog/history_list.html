@@ -5,9 +5,10 @@
 
                 <div class="row buttons">
                     <button class="btn btn-primary" id='4' onclick="toner_choice(this.id)" >Все</button>
-                    <button class="btn btn-primary" id='1' onclick="toner_choice(this.id)" >F217</button>
-                    <button class="btn btn-primary" id='2' onclick="toner_choice(this.id)" >ANB-12</button>
-                    <button class="btn btn-primary" id='3' onclick="toner_choice(this.id)" >ANB-12</button>
+                    <button class="btn btn-primary" id='1' onclick="toner_choice(this.id)" >TRHM102</button>
+                    <button class="btn btn-primary" id='2' onclick="toner_choice(this.id)" >CE285A</button>
+                    <button class="btn btn-primary" id='3' onclick="toner_choice(this.id)" >TRSUNIV</button>
+                    <button class="btn btn-primary" id='5' onclick="toner_choice(this.id)" >T125-K</button>
 
                     <input type="text" id="month" placeholder="Месяц">
                     <button class="btn btn-warning" onclick="toner_date()">Найти</button>
@@ -19,10 +20,10 @@
                     <div class="col-md-2 title">Остаток:</div>
                     <div class="col-md-2 title">Дата</div>
                 </div>
-                
+
                 <div class="toner" id="toner1" >
                     {% for item in items %}
-                        {% if item.name == 'F217' %}
+                        {% if item.name == 'TRHM102' %}
                             <div class="row item day{{ item.date.day }} month{{ item.date.month }}">
                                 <div class="col-md-2 title">{{ item.name }}</div>
                                 <div class="col-md-2 title">{{ item.used }}</div>
@@ -35,7 +36,7 @@
                 </div>
                 <div class="toner" id="toner2">
                     {% for item in items %}
-                        {% if item.name == 'ANB-12' %}
+                        {% if item.name == 'CE285A' %}
                             <div class="row item day{{ item.date.day }} month{{ item.date.month }}">
                                 <div class="col-md-2 title">{{ item.name }}</div>
                                 <div class="col-md-2 title">{{ item.used }}</div>
@@ -49,7 +50,7 @@
 
                 <div class="toner" id="toner3">
                     {% for item in items %}
-                        {% if item.name == '75zD' %}
+                        {% if item.name == 'TRSUNIV' %}
                             <div class="row item day{{ item.date.day }} month{{ item.date.month }}">
                                 <div class="col-md-2 title">{{ item.name }}</div>
                                 <div class="col-md-2 title">{{ item.used }}</div>
@@ -60,7 +61,20 @@
                         {% endif %}
                     {% endfor %}
                 </div>
-                
+                <div class="toner" id="toner5">
+                    {% for item in items %}
+                        {% if item.name == 'T125-K' %}
+                            <div class="row item day{{ item.date.day }} month{{ item.date.month }}">
+                                <div class="col-md-2 title">{{ item.name }}</div>
+                                <div class="col-md-2 title">{{ item.used }}</div>
+                                <div class="col-md-3 title">{{ item.new_over }}</div>
+                                <div class="col-md-2 title">{{ item.new_rem }}</div>
+                                <div class="col-md-3 title">{{ item.date.day }}.{{ item.date.month }}</div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
             </div>
         {% endif %}
 
