@@ -103,7 +103,7 @@ def zapros_awaits(request, pk):
     token = (str(currents.values('verification')).replace("<QuerySet [{'verification':", "")).replace("}]>", "").replace("'","")
     subject, from_email, to = 'Подтверждение проделанной работы', 'mailer@btu.kz', email
     text_content = 'adsfdsdf.'
-    link = 'http://webtestingarea.pythonanywhere.com/'+str(pk)+'/'+token
+    link = 'http://webtestingarea.pythonanywhere.com/zapros/delete/'+str(pk)+'/'+token
     text = 'Подтвердите окончание задачи"'+ problem +'"перейдя по <a href="'+link+'">ссылке</a>'
     html_content = text
     msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
